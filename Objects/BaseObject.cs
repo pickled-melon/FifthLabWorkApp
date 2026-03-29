@@ -10,6 +10,7 @@ namespace FifthLabWorkApp.Objects
         public float X;
         public float Y;
         public float Angle;
+        public float vX, vY;
 
         public Action<BaseObject, BaseObject> OnOverlap;
 

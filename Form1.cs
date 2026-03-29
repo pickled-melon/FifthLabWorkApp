@@ -30,9 +30,6 @@ namespace FifthLabWorkApp
 
             objects.Add(player);
             objects.Add(marker);
-
-            objects.Add(new MyRectangle(50, 50, 0));
-            objects.Add(new MyRectangle(100, 100, 45));
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -40,6 +37,8 @@ namespace FifthLabWorkApp
             var g = e.Graphics;
 
             g.Clear(Color.White);
+
+            UpdatePlayer();
 
             foreach (var obj in objects.ToList())
             {
@@ -64,6 +63,13 @@ namespace FifthLabWorkApp
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            // UpdatePlayer();
+
+            pbMain.Invalidate();
+        }
+
+        private void UpdatePlayer()
+        {
             if (marker != null)
             {
                 float dx = marker.X - player.X;
@@ -73,11 +79,17 @@ namespace FifthLabWorkApp
                 dx /= length;
                 dy /= length;
 
-                player.X += dx * 2;
-                player.Y += dy * 2;
+                player.vX += dx * 0.5f;
+                player.vY += dy * 0.5f;
+
+                player.Angle = 90 - MathF.Atan2(player.vX, player.vY) * 180 / MathF.PI;
             }
 
-            pbMain.Invalidate();
+            player.vX += -player.vX * 0.1f;
+            player.vY += -player.vY * 0.1f;
+
+            player.X += player.vX;
+            player.Y += player.vY;
         }
 
         private void pbMain_MouseClick(object sender, MouseEventArgs e)
