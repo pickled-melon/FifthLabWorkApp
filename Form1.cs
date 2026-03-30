@@ -8,6 +8,7 @@ namespace FifthLabWorkApp
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
+        Random rnd;
 
         public Form1()
         {
@@ -28,8 +29,22 @@ namespace FifthLabWorkApp
                 marker = null;
             };
 
+            rnd = new Random();
+
             objects.Add(player);
             objects.Add(marker);
+
+            var greenCircle = new GreenCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0);
+            objects.Add(greenCircle);
+
+            player.OnOverlap += (p, obj) =>
+            {
+                if (obj is GreenCircle grC)
+                {
+                    grC.X = rnd.Next(0, pbMain.Width);
+                    grC.Y = rnd.Next(0, pbMain.Height);
+                }
+            };
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
