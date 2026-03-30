@@ -68,7 +68,7 @@
             Controls.Add(txtLog);
             Controls.Add(pbMain);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Лабораторная работа \"Обработка событий\"";
             ((System.ComponentModel.ISupportInitialize)pbMain).EndInit();
             ResumeLayout(false);
         }
