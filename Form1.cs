@@ -10,6 +10,8 @@ namespace FifthLabWorkApp
         Marker marker;
         Random rnd;
 
+        int score = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -18,7 +20,9 @@ namespace FifthLabWorkApp
 
             player.OnOverlap += (p, obj) =>
             {
-                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+                var objectNames = obj.ToString().Split(".");
+
+                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {objectNames[objectNames.Length-1]}\n" + txtLog.Text;
             };
 
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
@@ -37,12 +41,17 @@ namespace FifthLabWorkApp
             var greenCircle = new GreenCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0);
             objects.Add(greenCircle);
 
+            var secondGreenCircle = new GreenCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0);
+            objects.Add(secondGreenCircle);
+
             player.OnOverlap += (p, obj) =>
             {
                 if (obj is GreenCircle grC)
                 {
                     grC.X = rnd.Next(0, pbMain.Width);
                     grC.Y = rnd.Next(0, pbMain.Height);
+
+                    score++;
                 }
             };
         }
@@ -69,6 +78,18 @@ namespace FifthLabWorkApp
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
             }
+
+            g.ResetTransform();
+
+            var scoreString = $"Очки: {score}";
+            var font = new Font("Arial", 12, FontStyle.Bold);
+
+            g.DrawString(scoreString,
+                font,
+                new SolidBrush(Color.Black), 
+                pbMain.Width - g.MeasureString(scoreString, font).Width - 10,
+                10
+            );
         }
 
         private void pbMain_Click(object sender, EventArgs e)
