@@ -6,7 +6,7 @@ namespace FifthLabWorkApp
     {
         const int CIRCLES_COUNT = 10;
 
-        MyRectangle myRect;
+        RedCircle redCircle;
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
@@ -55,6 +55,20 @@ namespace FifthLabWorkApp
                     score++;
                 }
             };
+
+            redCircle = new RedCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0, pbMain.Width);
+            objects.Add(redCircle);
+
+            redCircle.OnOverlap += (rc, obj) =>
+            {
+                if (obj is Player)
+                {
+                    score--;
+                    redCircle.Reset();
+                    redCircle.X = rnd.Next(0, pbMain.Width);
+                    redCircle.Y = rnd.Next(0, pbMain.Height);
+                }
+            };
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -101,6 +115,11 @@ namespace FifthLabWorkApp
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             // UpdatePlayer();
+
+            if (redCircle != null)
+            {
+                redCircle.Update();
+            }
 
             pbMain.Invalidate();
         }
