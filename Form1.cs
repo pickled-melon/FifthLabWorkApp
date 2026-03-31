@@ -4,6 +4,8 @@ namespace FifthLabWorkApp
 {
     public partial class Form1 : Form
     {
+        const int CIRCLES_COUNT = 10;
+
         MyRectangle myRect;
         List<BaseObject> objects = new();
         Player player;
@@ -38,11 +40,10 @@ namespace FifthLabWorkApp
             objects.Add(player);
             objects.Add(marker);
 
-            var greenCircle = new GreenCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0);
-            objects.Add(greenCircle);
-
-            var secondGreenCircle = new GreenCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0);
-            objects.Add(secondGreenCircle);
+            for (int i = 0; i < CIRCLES_COUNT; i++)
+            {
+                objects.Add(new GreenCircle(rnd.Next(0, pbMain.Width), rnd.Next(0, pbMain.Height), 0));
+            }
 
             player.OnOverlap += (p, obj) =>
             {
