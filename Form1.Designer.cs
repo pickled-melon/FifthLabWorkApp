@@ -37,9 +37,10 @@
             // 
             // pbMain
             // 
+            pbMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pbMain.Location = new Point(12, 12);
             pbMain.Name = "pbMain";
-            pbMain.Size = new Size(776, 426);
+            pbMain.Size = new Size(772, 426);
             pbMain.TabIndex = 0;
             pbMain.TabStop = false;
             pbMain.Click += pbMain_Click;
@@ -54,9 +55,10 @@
             // 
             // txtLog
             // 
-            txtLog.Location = new Point(794, 12);
+            txtLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtLog.Location = new Point(790, 12);
             txtLog.Name = "txtLog";
-            txtLog.Size = new Size(255, 426);
+            txtLog.Size = new Size(336, 426);
             txtLog.TabIndex = 1;
             txtLog.Text = "";
             // 
@@ -64,7 +66,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1061, 450);
+            ClientSize = new Size(1138, 450);
             Controls.Add(txtLog);
             Controls.Add(pbMain);
             Name = "Form1";
